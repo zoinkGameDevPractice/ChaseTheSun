@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8a74ac77ebb5448b67165ea5ef1d85, type: 3}
   m_Name: Normal_Separated
   m_EditorClassIdentifier: 
-  minY: 1
-  maxY: 2
+  minY: 1.5
+  maxY: 2.5
   numberOfPlatforms: 50
   platformPrefab:
   - {fileID: 7413431382555549493, guid: e07a1ab13b854264cb9e9f8b3af808df, type: 3}
-  numberOfEnemies: 2
+  numberOfEnemies: 0
   enemyPrefab:
   - {fileID: 6242724903517835393, guid: b0779a0c653430f40bbb4686dc1da2bb, type: 3}
   weight: 50
