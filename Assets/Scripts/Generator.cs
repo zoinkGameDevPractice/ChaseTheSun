@@ -33,6 +33,7 @@ public class Generator : MonoBehaviour
     void GenerateSegment()
     {
         GeneratePlatforms();
+        print(currentSegment);
         GenerateEnemies();
     }
 
@@ -57,17 +58,17 @@ public class Generator : MonoBehaviour
 
     void GenerateEnemies()
     {
-        GameObject prefab = currentSegment.GetRandomEnemyPrefab();
-
-        int platsPerEnemy = Mathf.RoundToInt(currentSegment.numberOfPlatforms / currentSegment.numberOfEnemies);
-        int numOfSections = Mathf.RoundToInt(currentSegment.numberOfPlatforms / platsPerEnemy);
-
-        for(int i = 0; i < numOfSections; i++)
+        if(currentSegment.numberOfEnemies > 0)
         {
-            for(int j = 0; j < currentSegment.numberOfEnemies; j++)
+            GameObject prefab = currentSegment.GetRandomEnemyPrefab();
+
+            int platsPerSection = Mathf.RoundToInt(currentSegment.numberOfPlatforms / currentSegment.numberOfEnemies);
+            int numOfSections = Mathf.RoundToInt(currentSegment.numberOfPlatforms / platsPerSection);
+
+            for (int i = 0; i < numOfSections; i++)
             {
-                int rand = Random.Range(0, platsPerEnemy);
-                int index = i + rand;
+                int rand = Random.Range(0, platsPerSection);
+                int index = i * platsPerSection + rand;
                 float xOffset = Random.Range(-maxXEnemyOffset, maxXEnemyOffset);
                 float yOffset = Random.Range(-maxYEnemyOffset, maxYEnemyOffset);
 
