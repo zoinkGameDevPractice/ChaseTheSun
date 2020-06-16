@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     Rigidbody2D rb;
 
     float move;
+    bool isFacingRight = false;
+    bool isGoingRight;
 
-    public float speed = 95f;
+    public float speed = 90f;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +20,28 @@ public class Player : MonoBehaviour
     void Update()
     {
         CheckForInput();
+        CheckForFlip();
     }
 
     void CheckForInput()
     {
-        move = Input.acceleration.x;
+        move = Input.acceleration.x * 5;
+        if(move > 0)
+        {
+            isGoingRight = true;
+        }
+        if(move < 0)
+        {
+            isGoingRight = false;
+        }
+    }
+
+    void CheckForFlip()
+    {
+        if(isGoingRight != isFacingRight)
+        {
+            Flip();
+        }
     }
 
     void FixedUpdate()
@@ -36,5 +54,21 @@ public class Player : MonoBehaviour
     {
         float move = input * speed * Time.deltaTime;
         rb.velocity = new Vector2(move, rb.velocity.y);
+    }
+
+    public void Flip()
+    {
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y);
+        isFacingRight = !isFacingRight;
+    }
+
+    public bool GetOrientation()
+    {
+        return isFacingRight;
+    }
+
+    public void Die()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
