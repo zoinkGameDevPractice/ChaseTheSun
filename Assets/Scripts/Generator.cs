@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformGenerator : MonoBehaviour
+public class Generator : MonoBehaviour
 {
     public const float minX = 1.25f;
     public const float maxX = 4.75f;
+
+    public float maxXEnemyOffset = 1.5f;
+    public float maxYEnemyOffset = 1.5f;
 
     public Segment[] segments;
 
@@ -29,19 +32,50 @@ public class PlatformGenerator : MonoBehaviour
 
     void GenerateSegment()
     {
+        GeneratePlatforms();
+        GenerateEnemies();
+    }
+
+    void GeneratePlatforms()
+    {
+        platforms = new List<GameObject>();
+
         Vector2 spawnPosition = transform.position;
         Segment s = GetSegment();
         currentSegment = s;
 
-        GameObject prefab = s.GetRandomPrefab();
+        GameObject prefab = s.GetRandomPlatformPrefab();
 
-        for(int i = 0; i < s.numberOfPlatforms; i++)
+        for (int i = 0; i < s.numberOfPlatforms; i++)
         {
             spawnPosition = new Vector2(GetSpawnPosition().x, spawnPosition.y + GetSpawnPosition().y);
             platforms.Add(Instantiate(prefab, spawnPosition, Quaternion.identity));
         }
 
         lastPlatform = platforms[platforms.Count - 1];
+    }
+
+    void GenerateEnemies()
+    {
+        GameObject prefab = currentSegment.GetRandomEnemyPrefab();
+
+        int platsPerEnemy = Mathf.RoundToInt(currentSegment.numberOfPlatforms / currentSegment.numberOfEnemies);
+        int numOfSections = Mathf.RoundToInt(currentSegment.numberOfPlatforms / platsPerEnemy);
+
+        for(int i = 0; i < numOfSections; i++)
+        {
+            for(int j = 0; j < currentSegment.numberOfEnemies; j++)
+            {
+                int rand = Random.Range(0, platsPerEnemy);
+                int index = i + rand;
+                float xOffset = Random.Range(-maxXEnemyOffset, maxXEnemyOffset);
+                float yOffset = Random.Range(-maxYEnemyOffset, maxYEnemyOffset);
+
+                Vector2 spawnPosition = platforms[index].transform.position + new Vector3(xOffset, yOffset);
+
+                Instantiate(prefab, spawnPosition, Quaternion.identity);
+            }
+        }
     }
 
     Segment GetSegment()
