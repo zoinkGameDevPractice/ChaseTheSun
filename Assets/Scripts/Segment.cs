@@ -22,6 +22,16 @@ public class Segment : ScriptableObject
     [Range(0, 100)]
     public int weight;
 
+    [Space]
+
+    [Header("Background and Overlay Options")]
+    public bool changesBG;
+    public GameObject background;
+    [Space]
+    public bool addsOverlay;
+    public GameObject overlay;
+
+    #region Methods
     public GameObject GetRandomPlatformPrefab()
     {
         return platformPrefab[Random.Range(0, platformPrefab.Length)];
@@ -41,4 +51,5 @@ public class Segment : ScriptableObject
     {
         return enemyPrefab[index];
     }
+    #endregion
 }

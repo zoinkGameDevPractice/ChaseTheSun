@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
+    #region Variables
     public const float minX = 1.25f;
     public const float maxX = 4.75f;
 
@@ -12,12 +13,21 @@ public class Generator : MonoBehaviour
     public Segment[] segments;
 
     Segment currentSegment;
+    Segment lastSegment;
+
+    public GameObject initialBackground;
+    GameObject currentBackground;
+
+    GameObject currentOverlay;
 
     List<GameObject> platforms = new List<GameObject>();
     GameObject lastPlatform = null;
+    #endregion
 
+    #region Unity Methods
     void Start()
     {
+        currentBackground = initialBackground;
         GenerateSegment();
     }
 
@@ -29,12 +39,17 @@ public class Generator : MonoBehaviour
             GenerateSegment();
         }
     }
+    #endregion
 
+    #region Generation
     void GenerateSegment()
     {
+        lastSegment = currentSegment;
         GeneratePlatforms();
-        print(currentSegment);
+        print(currentSegment); //Debugging
         GenerateEnemies();
+        GenerateBackground();
+        GenerateOverlay();
     }
 
     void GeneratePlatforms()
@@ -79,6 +94,54 @@ public class Generator : MonoBehaviour
         }
     }
 
+    void GenerateBackground()
+    {
+        if(currentSegment.changesBG)
+        {
+            Transform t = currentBackground.transform;
+            GameObject newBackground = currentSegment.background;
+
+            Destroy(currentBackground);
+
+            currentBackground = Instantiate(newBackground, t.position, Quaternion.identity);
+        }
+        else if(!currentSegment.changesBG)
+        {
+            if(lastSegment != null && lastSegment.changesBG)
+            {
+                ResetBackground();
+            }
+        }
+    }
+
+    void GenerateOverlay()
+    {
+        if (lastSegment != null && lastSegment.addsOverlay)
+        {
+            ResetOverlay();
+        }
+
+        if (currentSegment.addsOverlay)
+        {
+            currentOverlay = Instantiate(currentSegment.overlay, currentSegment.overlay.transform.position, Quaternion.identity);
+        }
+    }
+    #endregion
+
+    #region Reset Methods
+    void ResetBackground()
+    {
+        Destroy(currentBackground);
+        currentBackground = initialBackground;
+    }
+
+    void ResetOverlay()
+    {
+        Destroy(lastSegment.overlay);
+    }
+    #endregion
+
+    #region Private Getters
     Segment GetSegment()
     {
         int totalWeight = 0;
@@ -106,4 +169,5 @@ public class Generator : MonoBehaviour
 
         return new Vector2(x, y);
     }
+    #endregion
 }
