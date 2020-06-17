@@ -294,11 +294,6 @@ PrefabInstance:
       propertyPath: m_UsedByEffector
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2455332862009819085, guid: e07a1ab13b854264cb9e9f8b3af808df,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7413431382555549480, guid: e07a1ab13b854264cb9e9f8b3af808df,
         type: 3}
       propertyPath: m_Enabled
@@ -1143,6 +1138,7 @@ MonoBehaviour:
   segments:
   - {fileID: 11400000, guid: b19da86a2e9027a49a507b9f91e1bcf1, type: 2}
   - {fileID: 11400000, guid: ff22cc92dba90b642bcefdc0eeea0405, type: 2}
+  initialBackground: {fileID: 1257816200}
 --- !u!4 &1219554938
 Transform:
   m_ObjectHideFlags: 0
