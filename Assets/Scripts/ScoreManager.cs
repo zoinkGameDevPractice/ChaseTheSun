@@ -3,8 +3,11 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
+    [Header("References")]
     public Rigidbody2D player;
-    public TextMeshProUGUI text;
+    [Space]
+    public TextMeshProUGUI meterText;
+    public TextMeshProUGUI topMeterText;
 
     Vector2 initialPos;
     int meters;
@@ -27,11 +30,20 @@ public class ScoreManager : MonoBehaviour
         {
             topMeters = meters;
         }
+        if (PlayerPrefs.GetInt("HighScore", 0) <= topMeters) { PlayerPrefs.SetInt("HighScore", topMeters); }
         Display(topMeters);
     }
 
     void Display(int i)
     {
-        text.text = i.ToString() + "M";
+        meterText.text = i.ToString() + "M";
+        topMeterText.text = "Top: " + PlayerPrefs.GetInt("HighScore", 0).ToString() + "M";
+    }
+
+    //For Developement
+    public void ResetHighScore()
+    {
+        PlayerPrefs.DeleteKey("HighScore");
+        print("Deleted the High Score");
     }
 }
