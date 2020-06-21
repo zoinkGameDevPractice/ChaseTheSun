@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b8a74ac77ebb5448b67165ea5ef1d85, type: 3}
-  m_Name: Normal
+  m_Name: Meanie_Home
   m_EditorClassIdentifier: 
-  minY: 0.75
-  maxY: 1.5
-  numberOfPlatforms: 50
+  minY: 1
+  maxY: 2
+  numberOfPlatforms: 15
   platformPrefab:
   - {fileID: 7413431382555549493, guid: e07a1ab13b854264cb9e9f8b3af808df, type: 3}
-  numberOfEnemies: 1
+  numberOfEnemies: 6
   enemyPrefab:
   - {fileID: 6242724903517835393, guid: b0779a0c653430f40bbb4686dc1da2bb, type: 3}
-  weight: 50
+  weight: 20
   changesBG: 0
   background: {fileID: 0}
-  addsOverlay: 0
-  overlay: {fileID: 0}
+  addsOverlay: 1
+  overlay: {fileID: 1453302528470231585, guid: 8118f51e412ffb148876de0b0ecf85b7, type: 3}

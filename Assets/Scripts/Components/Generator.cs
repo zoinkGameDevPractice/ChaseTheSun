@@ -98,12 +98,12 @@ public class Generator : MonoBehaviour
     {
         if(currentSegment.changesBG)
         {
-            Transform t = currentBackground.transform;
             GameObject newBackground = currentSegment.background;
 
             Destroy(currentBackground);
 
-            currentBackground = Instantiate(newBackground, t.position, Quaternion.identity);
+            currentBackground = Instantiate(newBackground, Camera.main.transform.position, Quaternion.identity);
+            currentBackground.transform.parent = Camera.main.transform;
         }
         else if(!currentSegment.changesBG)
         {
@@ -123,7 +123,8 @@ public class Generator : MonoBehaviour
 
         if (currentSegment.addsOverlay)
         {
-            currentOverlay = Instantiate(currentSegment.overlay, currentSegment.overlay.transform.position, Quaternion.identity);
+            currentOverlay = Instantiate(currentSegment.overlay, Camera.main.transform.position, Quaternion.identity);
+            currentOverlay.transform.parent = Camera.main.transform;
         }
     }
     #endregion

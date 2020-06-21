@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     Rigidbody2D rb;
 
     public float speed = 25f;
+    public float bounciness = 10f;
 
     Vector2 nextPos;
 
@@ -52,6 +53,8 @@ public class Enemy : MonoBehaviour
 
             if(collision.relativeVelocity.y < 0f)
             {
+                Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+                rb.velocity += new Vector2(0, bounciness);
                 Die();
             }
         }
