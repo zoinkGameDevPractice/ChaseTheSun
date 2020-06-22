@@ -102,7 +102,8 @@ public class Generator : MonoBehaviour
 
             Destroy(currentBackground);
 
-            currentBackground = Instantiate(newBackground, Camera.main.transform.position, Quaternion.identity);
+            Vector3 position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+            currentBackground = Instantiate(newBackground, position, Quaternion.identity);
             currentBackground.transform.parent = Camera.main.transform;
         }
         else if(!currentSegment.changesBG)
@@ -123,7 +124,8 @@ public class Generator : MonoBehaviour
 
         if (currentSegment.addsOverlay)
         {
-            currentOverlay = Instantiate(currentSegment.overlay, Camera.main.transform.position, Quaternion.identity);
+            Vector3 position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+            currentOverlay = Instantiate(currentSegment.overlay, position, Quaternion.identity);
             currentOverlay.transform.parent = Camera.main.transform;
         }
     }
